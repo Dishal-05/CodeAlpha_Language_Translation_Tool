@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Language Translator - AI Translation Tool</title>
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- ======================================================= -->
+  <!--  HERO HEADER                                            -->
+  <!-- ======================================================= -->
+  <header class="hero">
+    <div class="hero-icon">🌐</div>
+    <h1 class="hero-title">Language Translator</h1>
+    <p class="hero-subtitle">Break language barriers with AI-powered translation</p>
+  </header>
+
+  <!-- ======================================================= -->
+  <!--  MAIN TRANSLATOR CARD                                   -->
+  <!-- ======================================================= -->
+  <main class="container">
+    <div class="card">
+
+      <!-- ── Language Selector Row ──────────────────────────── -->
+      <div class="lang-row">
+
+        <!-- Source language dropdown -->
+        <div class="lang-group">
+          <label for="source-lang" class="lang-label">From</label>
+          <div class="select-wrapper">
+            <select id="source-lang" class="lang-select">
+              {% for name, code in languages.items() %}
+                <option value="{{ code }}" {% if code == "auto" %}selected{% endif %}>
+                  {{ name }}
+                </option>
+              {% endfor %}
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+
+        <!-- Swap button -->
+        <button id="swap-btn" class="swap-btn" type="button" title="Swap languages">
+          <span class="swap-icon">⇄</span>
+        </button>
+
+        <!-- Target language dropdown -->
+        <div class="lang-group">
+          <label for="target-lang" class="lang-label">To</label>
+          <div class="select-wrapper">
+            <select id="target-lang" class="lang-select">
+              {% for name, code in languages.items() %}
+                {% if code != "auto" %}
+                  <option value="{{ code }}" {% if code == "fr" %}selected{% endif %}>
+                    {{ name }}
+                  </option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+
+      </div><!-- end .lang-row -->
+
+      <!-- ── Text Areas Row ─────────────────────────────────── -->
+      <div class="text-row">
+
+        <!-- Input Box -->
+        <div class="text-box-wrapper">
+          <div class="box-header">
+            <label for="input-text" class="box-label">Original Text</label>
+            <span class="char-count"><span id="char-count">0</span> / 5000</span>
+          </div>
+          <textarea
+            id="input-text"
+            class="text-box"
+            placeholder="Type or paste text here to translate…"
+            maxlength="5000"
+          ></textarea>
+        </div>
+
+        <!-- Output Box -->
+        <div class="text-box-wrapper">
+          <div class="box-header">
+            <label for="output-text" class="box-label">Translated Text</label>
+            <span id="service-badge" class="service-badge hidden">Powered by AI</span>
+          </div>
+          <textarea
+            id="output-text"
+            class="text-box output-box"
+            placeholder="Translation will appear here…"
+            readonly
+          ></textarea>
+          <div class="output-actions">
+            <button id="copy-btn" class="copy-btn" type="button" title="Copy translated text" disabled>
+              📋 Copy Translation
+            </button>
+          </div>
+        </div>
+
+      </div><!-- end .text-row -->
+
+      <!-- ── Message / Alert Banner ─────────────────────────── -->
+      <div id="message-bar" class="message-bar hidden"></div>
+
+      <!-- ── Loading Indicator ──────────────────────────────── -->
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <span>Translating with AI…</span>
+      </div>
+
+      <!-- ── Action Buttons ─────────────────────────────────── -->
+      <div class="btn-row">
+        <button id="translate-btn" class="btn btn-primary" type="button">
+          🔤 Translate
+        </button>
+        <button id="clear-btn" class="btn btn-secondary" type="button">
+          🗑 Clear
+        </button>
+      </div>
+
+    </div><!-- end .card -->
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <p>CodeAlpha AI Internship &nbsp;|&nbsp; Built with Python · Flask · Microsoft AI Translation</p>
+  </footer>
+
+  <!-- Front-end script -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
