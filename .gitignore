@@ -1,5 +1,6 @@
-# Push helper script
+# Helper scripts
 push_to_github.py
+push.bat
 
 # Python
 __pycache__/
