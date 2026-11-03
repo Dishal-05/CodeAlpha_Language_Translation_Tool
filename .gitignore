@@ -1,3 +1,6 @@
+# Push helper script
+push_to_github.py
+
 # Python
 __pycache__/
 *.py[cod]
